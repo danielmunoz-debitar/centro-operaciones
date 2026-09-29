@@ -1,0 +1,9 @@
+{
+  "name": "Tracker Balance Real - Uber Chile",
+  "short_name": "Uber Balance",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "description": "Calculadora móvil de rentabilidad para conductor Uber en Chile."
+}
