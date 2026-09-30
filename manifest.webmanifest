@@ -1,1 +1,16 @@
-{"name":"Calculadora Uber | DEBITAR","short_name":"Uber DEBITAR","start_url":"./","scope":"./","display":"standalone","background_color":"#050b18","theme_color":"#08142f","description":"Control de turnos y ganancias Uber de DEBITAR"}
+{
+  "name": "DEBITAR · Centro de Operaciones",
+  "short_name": "DEBITAR Ops",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070b16",
+  "theme_color": "#0a1020",
+  "icons": [
+    {
+      "src": "assets/logo-debitar.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
