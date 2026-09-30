@@ -1,18 +1,21 @@
-# DEBITAR · Centro de Operaciones v0.4
+# DEBITAR · Centro de Operaciones v0.5
 
-Versión operativa integrada para GitHub Pages.
+Versión integrada del ecosistema personal/DEBITAR.
 
-## Cambios principales
-- Dashboard ampliado con ingresos, gastos, deudas, billeteras, Meta Uber, tiempo y $/hora.
-- Uber por turno **y por viaje individual**, con recuperación de bencina y consolidación al cerrar turno.
-- Sueldo e ingresos manuales editables.
-- Gastos y deudas pueden volver de Pagado a Pendiente, revirtiendo el saldo de la billetera.
-- Objetivos con abonos/actualizaciones y ubicación de fondos.
-- Reportes descargables CSV: flujo de caja, resultados mensuales e ingresos/tiempo.
-- Separación mensual: cada período se analiza por separado y Reportes conserva comparativos históricos.
+## Novedades
+- Interfaz móvil reforzada, especialmente Uber.
+- Tareas con fecha, prioridad, cliente/área, horas y enlace a Google Calendar.
+- Sesiones DEBITAR asociables a tareas.
+- Reportes profesionales imprimibles/guardables como PDF con logo: Flujo de Caja, Resultados Mensuales e Ingresos/Tiempo/Productividad.
+- Crecimiento de cartera dentro de DEBITAR con pipeline liviano de prospectos.
+- Dashboard ampliado con caja, ingresos, obligaciones, Meta Uber, tiempo, productividad, objetivos y tareas.
+- Migración automática desde v0.4 en el mismo navegador.
 
-## Publicación
-Sube/reemplaza todos los archivos en la raíz del repositorio y conserva `assets/logo-debitar.png`. GitHub Pages debe publicar desde `main` / root.
+## Publicar en GitHub Pages
+Sube el contenido de esta carpeta a la raíz del repositorio y reemplaza los archivos anteriores. Mantén `assets/logo-debitar.png`.
 
-## Datos
-Los datos siguen almacenados localmente en el navegador. Exporta respaldos JSON regularmente. No publiques respaldos ni credenciales en GitHub.
+## Google Calendar
+El botón Calendar abre un evento prellenado en Google Calendar. Google solicita al usuario confirmar/guardar el evento; no se almacenan credenciales de Google en esta PWA.
+
+## Seguridad
+No publiques respaldos JSON con datos reales o credenciales en GitHub. La sincronización segura multi-dispositivo sigue siendo una etapa posterior.
