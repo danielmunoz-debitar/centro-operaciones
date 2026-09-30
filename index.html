@@ -1,207 +1,119 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f172a">
-<title>Tracker Balance Real - Uber Chile</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08142f"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Uber Balance">
+<meta name="apple-mobile-web-app-title" content="Uber DEBITAR">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>Calculadora Uber | DEBITAR</title>
 <style>
-:root{
-  --bg:#0f172a; --panel:#1e293b; --card:#111827; --line:#334155;
-  --text:#f8fafc; --muted:#93a4bd; --green:#10b981; --orange:#f59e0b; --red:#ef4444;
-}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.wrap{width:min(100%,480px);margin:auto;padding:12px 12px calc(28px + env(safe-area-inset-bottom))}
-.shell{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 18px 45px #0005}
-h1{font-size:19px;text-align:center;margin:2px 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.box{background:#172235;border:1px solid var(--line);border-radius:15px;padding:14px;margin:14px 0}
-.fuel{border-color:var(--orange)}
-.label{font-size:12px;color:#9fc0e8;margin-bottom:5px}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-input,select{width:100%;background:#0f172a;color:white;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:16px}
-button{border:0;border-radius:9px;padding:12px 14px;font-weight:800;cursor:pointer;font-size:14px}
-.orange{background:var(--orange)} .green{background:#16c18d;width:100%;margin-top:10px}
-.danger{background:#7f1d1d;color:white;width:100%;margin-top:10px}.ghost{background:transparent;border:1px solid var(--line);color:#a9c5e8;width:100%;margin-top:10px}
-.meta{display:flex;justify-content:space-between;color:#9fc0e8;font-weight:700}.meta b{color:var(--green)}
-.progress{height:10px;background:#475569;border-radius:20px;overflow:hidden;margin:8px 0 12px}.progress span{display:block;height:100%;background:var(--green);width:0%}
-.stat{background:#0f172a;border:1px solid var(--line);border-radius:9px;padding:10px;min-height:62px}.stat small{display:block;color:#9fc0e8;font-size:10px}.stat strong{display:block;margin-top:4px;font-size:17px}
-.greenText{color:var(--green)} .redText{color:var(--red)}
-.wide{grid-column:1/-1}
-.notice{border:1px solid var(--orange);color:var(--orange);text-align:center;padding:9px;border-radius:9px;margin-top:10px;font-size:12px;font-weight:700}
-.trip{background:#111827;border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;font-size:13px}.tripHead{display:flex;justify-content:space-between;gap:10px}.muted{color:var(--muted)}
-.settings summary{cursor:pointer;color:#9fc0e8;font-weight:700}.settings .grid{margin-top:10px}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-@media(max-width:360px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.shell{padding:12px}}
-</style>
-</head>
-<body>
-<div class="wrap"><div class="shell">
-<h1>🚙 Tracker Balance Real - San Bernardo</h1>
+:root{--bg:#050b18;--panel:#0a1730;--panel2:#0d1c38;--line:#22355a;--text:#f7f9ff;--muted:#9eabc3;--purple:#7938ff;--blue:#1877ff;--cyan:#00d9ef;--green:#16e09a;--orange:#ffb020;--red:#ff5364}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#172b60 0,#08142f 28%,#050b18 70%);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:520px;margin:auto;padding:18px 14px 34px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 2px 18px}.brand h1{font-size:22px;margin:0}.brand h1 span{color:var(--cyan)}.deb{text-align:right;font-weight:900;letter-spacing:2px;font-size:20px}.deb small{display:block;font-weight:500;letter-spacing:0;color:#b7c1d7;font-size:9px;margin-top:3px}
+.box{background:linear-gradient(145deg,rgba(16,34,70,.98),rgba(5,18,39,.98));border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0}.accent{border-color:#315ce5;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}.title{font-weight:900;font-size:14px;letter-spacing:.3px;margin-bottom:12px}.grad{background:linear-gradient(90deg,var(--purple),var(--cyan));-webkit-background-clip:text;color:transparent}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;color:var(--muted);font-size:11px;margin:0 0 6px}input,select{width:100%;background:#071126;border:1px solid #30476f;border-radius:11px;padding:12px;color:white;font-size:16px;outline:none}input:focus,select:focus{border-color:var(--cyan)}
+button{width:100%;border:0;border-radius:11px;padding:13px 10px;color:#fff;font-weight:850;font-size:14px;margin-top:10px;background:linear-gradient(90deg,var(--purple),var(--blue),var(--cyan));cursor:pointer}.secondary{background:#17243e;border:1px solid #3a4b68}.fuelbtn{background:linear-gradient(90deg,#db8a00,#ffb020);color:#17100a}
+.shiftInfo{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}.live{color:var(--green);font-weight:800}
+.summary{padding:0;overflow:hidden;border-color:#2451b7}.summaryHead{padding:13px 15px;background:linear-gradient(90deg,#6b28ff,#167bff,#04cbdc);font-weight:900;font-size:16px}.summaryBody{padding:14px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{background:#08152d;border:1px solid #233b64;border-radius:13px;padding:12px;min-width:0}.stat small{display:block;color:#aebbd1;font-size:10px;margin-bottom:6px}.stat strong{display:block;font-size:20px;overflow-wrap:anywhere}.cardv{color:#a970ff}.cashv{color:#12e7d7}.total{grid-column:1/-1;background:linear-gradient(110deg,#6427ef,#167cff,#02c8dd);border:0}.total small{color:#fff}.total strong{font-size:30px}.fuelRow{margin-top:12px;padding-top:12px;border-top:1px solid #243b62}.line{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:8px 0;font-size:13px}.line b{font-size:17px}.bar{height:10px;border-radius:99px;background:#17263f;overflow:hidden;border:1px solid #334968}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00cfa4,#22e879);transition:.25s}.recovered{color:var(--green)}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.kpi{background:#07142b;border:1px solid #223a61;border-radius:12px;padding:11px 7px;text-align:center}.kpi small{display:block;color:#aebbd1;font-size:9px;min-height:22px}.kpi strong{font-size:16px;color:#22d5ff}.notice{font-size:11px;color:#aebbd1;margin-top:10px;line-height:1.45}
+.trip{background:#09162e;border:1px solid #21395f;border-radius:12px;padding:11px;margin:8px 0}.tripTop{display:flex;justify-content:space-between;gap:10px}.tripMeta{font-size:11px;color:#9eabc3;margin-top:5px}.del{width:auto;margin:0;padding:4px 8px;background:#2b1930;color:#ff7886}
+details summary{cursor:pointer;font-weight:800;color:#b9c8e5}.help{font-size:12px;color:#aebbd1;line-height:1.55;margin-top:10px}
+@media(max-width:360px){.grid,.stats{grid-template-columns:1fr}.total{grid-column:auto}.kpis{grid-template-columns:1fr}.brand{align-items:flex-start}.deb{font-size:17px}}
+</style></head>
+<body><main class="wrap">
+<div class="brand"><h1>🚙 Calculadora <span>Uber</span></h1><div class="deb"><span class="grad">▮▮▮</span> DEBITAR<small>Domina tus números, impulsa tu crecimiento</small></div></div>
 
-<div class="box fuel">
-  <div class="label" style="color:#fbbf24;font-weight:800">⛽ REGISTRO DE CARGA DE BENCINA</div>
-  <div class="row"><input id="fuelInput" inputmode="numeric" placeholder="Ej: $10.000 o $20.000"><button class="orange" onclick="addFuel()">CARGAR</button></div>
-</div>
-
-<div class="box">
-  <div class="meta"><span>META LÍQUIDA TURNO:</span><b id="metaText">$0 / $12.500</b></div>
-  <div class="progress"><span id="bar"></span></div>
-  <div class="grid">
-    <div class="stat"><small>💵 COBRADO APP/PASAJERO</small><strong id="gross">$0</strong></div>
-    <div class="stat"><small>⛽ COMBUSTIBLE CONSUMIDO</small><strong class="redText" id="fuel">$0</strong></div>
-    <div class="stat"><small>🛠 MANTENCIÓN / IMPUESTO</small><strong class="redText" id="costs">-$0</strong></div>
-    <div class="stat"><small>💰 NETO LÍQUIDO EN BOLSILLO</small><strong class="greenText" id="net">$0</strong></div>
-    <div class="stat"><small>⛽ CARGAS PAGADAS</small><strong id="fuelLoaded">$0</strong></div>
-    <div class="stat"><small>🛣 KM REGISTRADOS</small><strong id="kmTotal">0 km</strong></div>
-    <div class="stat wide"><small>🏷 VALOR / KM PROMEDIO GLOBAL</small><strong id="perKm">$0 / km bruto</strong></div>
-  </div>
-  <div class="grid" style="margin-top:10px">
-    <div class="stat"><small>⏱ NETO / HORA</small><strong id="netHour">$0</strong></div>
-    <div class="stat"><small>🛣 COSTO COMBUSTIBLE / KM</small><strong id="fuelKm">$0</strong></div>
-    <div class="stat"><small>💰 NETO / KM</small><strong id="netKm">$0</strong></div>
-    <div class="stat"><small>🎯 FALTA PARA META</small><strong id="remaining">$0</strong></div>
-  </div>
-  <div class="notice" id="notice">⌛ Registra un viaje para calcular...</div>
-</div>
-
-<div class="box">
-  <div class="label" style="font-weight:800">⏱ CONTROL DEL TURNO</div>
-  <div class="grid">
-    <div><div class="label">KM tablero al iniciar:</div><input id="odoStart" inputmode="decimal" placeholder="Ej: 125430"></div>
-    <div><div class="label">KM tablero al terminar:</div><input id="odoEnd" inputmode="decimal" placeholder="Ej: 125512"></div>
-  </div>
-  <button class="green" onclick="startShift()">▶ INICIAR TURNO</button>
-  <button class="ghost" style="margin-top:10px" onclick="stopShift()">⏹ FINALIZAR TURNO</button>
-  <div class="muted" id="shiftInfo" style="font-size:12px;margin-top:8px">Turno no iniciado.</div>
-  <div class="muted" id="odoInfo" style="font-size:12px;margin-top:5px">KM reales del turno: 0 km</div>
-</div>
-
-<div class="box">
-  <div class="label" style="font-weight:800">🚘 REGISTRAR VIAJE</div>
-  <div class="grid">
-    <div><div class="label">Ganancia mostrada por Uber ($):</div><input id="amount" inputmode="numeric" placeholder="Ej: 1750"></div>
-    <div><div class="label">Km Totales (R+V):</div><input id="km" inputmode="decimal" placeholder="Ej: 2.8"></div>
-  </div>
-  <div class="label" style="margin-top:12px">Forma de Pago:</div>
-  <select id="payment"><option value="app">💳 App / Tarjeta</option><option value="cash">💵 Efectivo</option></select>
-  <button class="green" onclick="addTrip()">➕ REGISTRAR VIAJE</button>
-</div>
-
-<details class="box settings">
-<summary>⚙️ Configuración de cálculo</summary>
+<section class="box accent">
+<div class="title">▶ CONTROL DEL TURNO</div>
 <div class="grid">
- <div><div class="label">Meta líquida turno ($)</div><input id="goal" type="number" value="12500" onchange="saveSettings()"></div>
- <div><div class="label">Mantención / desgaste (%)</div><input id="maintPct" type="number" step="0.1" value="8" onchange="saveSettings()"></div>
- <div><div class="label">Retención / impuesto (%)</div><input id="taxPct" type="number" step="0.01" value="0" onchange="saveSettings()"></div>
- <div><div class="label">Horas meta turno</div><input id="hours" type="number" step="0.5" value="2" onchange="saveSettings()"></div>
- <div><div class="label">Precio combustible ($/litro)</div><input id="fuelPrice" type="number" step="1" value="1250" onchange="saveSettings()"></div>
- <div><div class="label">Rendimiento vehículo (km/l)</div><input id="efficiency" type="number" step="0.1" value="10" onchange="saveSettings()"></div>
+ <div class="field"><label>KM tablero al iniciar</label><input id="odoStart" inputmode="decimal" placeholder="Ej: 125430"></div>
+ <div class="field"><label>KM tablero al finalizar</label><input id="odoEnd" inputmode="decimal" placeholder="Ej: 125512"></div>
 </div>
-<div class="muted" style="font-size:11px;margin-top:8px">El combustible consumido se calcula como: km registrados ÷ rendimiento (km/l) × precio por litro. Las cargas pagadas se guardan aparte para control de caja y no se descuentan completas de la rentabilidad del turno.</div>
-</details>
+<div class="grid"><button id="startBtn">▶ INICIAR TURNO</button><button class="secondary" id="stopBtn">■ FINALIZAR TURNO</button></div>
+<div class="shiftInfo" id="shiftInfo">Turno no iniciado.</div>
+</section>
 
-<div class="box">
-<details>
-<summary style="cursor:pointer;font-weight:800;color:#9fc0e8">❓ ¿CÓMO LEER ESTA CALCULADORA?</summary>
-<div class="muted" style="font-size:12px;line-height:1.55;margin-top:10px">
-<b style="color:white">Cobrado:</b> suma de ganancias que registras.<br>
-<b style="color:white">KM reales del turno:</b> kilometraje final − kilometraje inicial. Incluye kilómetros con y sin pasajero.<br>
-<b style="color:white">Combustible consumido:</b> km ÷ km/l × precio por litro. No es lo mismo que lo cargado en la bomba.<br>
-<b style="color:white">Mantención:</b> provisión configurable para desgaste del vehículo.<br>
-<b style="color:white">Retención:</b> provisión configurable. Si la ganancia que ingresas ya viene después de la retención de Uber, déjala en 0% para no descontarla dos veces.<br>
-<b style="color:white">Neto real:</b> cobrado − combustible consumido − mantención − retención configurada.<br>
-<b style="color:white">Neto/hora:</b> sirve para comparar turnos de distinta duración.<br>
-<b style="color:white">Neto/km:</b> muestra cuánto te queda por cada km registrado.
+<section class="box">
+<div class="title">⛽ CARGA DE BENCINA</div>
+<div class="grid"><div class="field"><label>Monto cargado ($)</label><input id="fuelInput" inputmode="numeric" placeholder="Ej: 20000"></div><button class="fuelbtn" id="fuelBtn">REGISTRAR CARGA</button></div>
+</section>
+
+<section class="box summary">
+<div class="summaryHead">▮▮▮ RESUMEN DEL TURNO</div>
+<div class="summaryBody">
+ <div class="stats">
+  <div class="stat"><small>💳 GANANCIA TARJETA / APP</small><strong class="cardv" id="cardTotal">$0</strong></div>
+  <div class="stat"><small>💵 GANANCIA EFECTIVO</small><strong class="cashv" id="cashTotal">$0</strong></div>
+  <div class="stat total"><small>💰 TOTAL GENERADO</small><strong id="gross">$0</strong></div>
+ </div>
+ <div class="fuelRow">
+  <div class="line"><span>⛽ Bencina cargada</span><b id="fuelLoaded">$0</b></div>
+  <div class="line"><span>🎯 Recuperación de bencina</span><b id="fuelPct">0%</b></div>
+  <div class="bar"><span id="fuelBar"></span></div>
+  <div class="line"><span id="fuelStatus">Falta recuperar</span><b id="fuelDiff">$0</b></div>
+ </div>
+ <div class="kpis">
+  <div class="kpi"><small>⏱ GENERADO / HORA</small><strong id="perHour">$0</strong></div>
+  <div class="kpi"><small>🛣 GENERADO / KM</small><strong id="perKm">$0</strong></div>
+  <div class="kpi"><small>🚗 KM REALES DEL TURNO</small><strong id="realKm">0 km</strong></div>
+ </div>
+ <div class="notice">“Generado/hora” y “Generado/km” miden producción bruta registrada. La recuperación de bencina se muestra aparte y no se presenta como utilidad económica.</div>
+</div></section>
+
+<section class="box">
+<div class="title">➕ REGISTRAR VIAJE</div>
+<div class="grid">
+ <div class="field"><label>Ganancia mostrada por Uber ($)</label><input id="amount" inputmode="numeric" placeholder="Ej: 5200"></div>
+ <div class="field"><label>KM del viaje (opcional)</label><input id="km" inputmode="decimal" placeholder="Ej: 8,5"></div>
 </div>
-</details>
-</div>
+<div class="field" style="margin-top:10px"><label>Forma de pago</label><select id="payment"><option value="app">💳 App / Tarjeta</option><option value="cash">💵 Efectivo</option></select></div>
+<button id="addTrip">➕ REGISTRAR VIAJE</button>
+</section>
 
-<hr>
-<div class="label" style="font-weight:800">📋 HISTORIAL DE VIAJES</div>
-<div id="history" class="muted" style="text-align:center;padding:12px">Sin viajes registrados aún.</div>
-<button class="ghost" onclick="resetTurn()">🔄 Reiniciar Turno Completo</button>
-</div></div>
+<section class="box"><div class="title">📋 HISTORIAL DE VIAJES</div><div id="history" class="shiftInfo" style="text-align:center">Sin viajes registrados aún.</div></section>
 
+<section class="box"><details><summary>❓ ¿Cómo leer la calculadora?</summary><div class="help">
+<b>Total generado:</b> tarjeta/app + efectivo registrados.<br>
+<b>Recuperación de bencina:</b> compara lo generado con el monto que cargaste. Al llegar a 100% la carga quedó recuperada en términos de caja.<br>
+<b>Generado/hora:</b> total generado ÷ tiempo real desde iniciar hasta finalizar el turno.<br>
+<b>Generado/km:</b> total generado ÷ kilómetros reales del turno. Mientras no finalices, usa los km de viajes registrados como referencia.<br>
+<b>KM reales:</b> kilometraje final del tablero − kilometraje inicial.
+</div></details></section>
+<button class="secondary" id="resetBtn">🔄 REINICIAR TURNO COMPLETO</button>
+</main>
 <script>
-const KEY='uberTrackerChile_v1';
-let state={fuel:0,trips:[],shiftStart:null,shiftEnd:null,odoStart:null,odoEnd:null,settings:{goal:12500,maintPct:8,taxPct:0,hours:2,fuelPrice:1250,efficiency:10}};
+const KEY='uberTrackerDebitarFinal_v1';
+let state={fuel:0,trips:[],shiftStart:null,shiftEnd:null,odoStart:null,odoEnd:null};
 const $=id=>document.getElementById(id);
-const money=n=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Math.round(n||0));
-function load(){
- try{const x=JSON.parse(localStorage.getItem(KEY)); if(x) state=x}catch(e){}
- if(state.settings.fuelPrice==null) state.settings.fuelPrice=1250;
- if(state.settings.efficiency==null) state.settings.efficiency=10;
- $('goal').value=state.settings.goal; $('maintPct').value=state.settings.maintPct; $('taxPct').value=state.settings.taxPct; $('hours').value=state.settings.hours; $('fuelPrice').value=state.settings.fuelPrice; $('efficiency').value=state.settings.efficiency; render();
-}
-function persist(){localStorage.setItem(KEY,JSON.stringify(state))}
+const money=n=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Math.round(Number(n)||0));
 function num(v){return Number(String(v).replace(/\./g,'').replace(',','.').replace(/[^\d.-]/g,''))||0}
-function saveSettings(){
- state.settings={goal:num($('goal').value),maintPct:num($('maintPct').value),taxPct:num($('taxPct').value),hours:num($('hours').value),fuelPrice:num($('fuelPrice').value),efficiency:num($('efficiency').value)};
- persist();render();
-}
-function addFuel(){
- let v=num($('fuelInput').value); if(v<=0)return alert('Ingresa un monto de bencina válido.');
- state.fuel+=v;$('fuelInput').value='';persist();render();
-}
-function addTrip(){
- let amount=num($('amount').value), km=num($('km').value);
- if(amount<=0||km<=0)return alert('Ingresa monto y kilómetros válidos.');
- state.trips.unshift({id:Date.now(),amount,km,payment:$('payment').value,time:new Date().toLocaleString('es-CL')});
- $('amount').value='';$('km').value='';persist();render();
-}
-function deleteTrip(id){state.trips=state.trips.filter(t=>t.id!==id);persist();render()}
-function startShift(){
- const o=Number($('odoStart').value);
- if(!o||o<0)return alert('Ingresa el kilometraje del tablero al iniciar.');
- state.shiftStart=Date.now();state.shiftEnd=null;state.odoStart=o;state.odoEnd=null;persist();render()
-}
-function stopShift(){
- if(!state.shiftStart)return alert('Primero inicia el turno.');
- const o=Number($('odoEnd').value);
- if(!o||o<state.odoStart)return alert('El kilometraje final debe ser igual o mayor al inicial.');
- state.shiftEnd=Date.now();state.odoEnd=o;persist();render()
-}
-function elapsedHours(){
- if(!state.shiftStart) return state.settings.hours||2;
- const end=state.shiftEnd||Date.now();
- return Math.max((end-state.shiftStart)/3600000,1/60);
-}
-function resetTurn(){if(confirm('¿Reiniciar viajes, bencina, horario y kilometraje del turno?')){state.fuel=0;state.trips=[];state.shiftStart=null;state.shiftEnd=null;state.odoStart=null;state.odoEnd=null;persist();render()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x)state={...state,...x}}catch(e){} render()}
+function elapsedHours(){if(!state.shiftStart)return 0;const end=state.shiftEnd||Date.now();return Math.max((end-state.shiftStart)/3600000,1/60)}
+function startShift(){const o=num($('odoStart').value);if(o<=0)return alert('Ingresa el kilometraje del tablero al iniciar.');state.shiftStart=Date.now();state.shiftEnd=null;state.odoStart=o;state.odoEnd=null;save();render()}
+function stopShift(){if(!state.shiftStart)return alert('Primero inicia el turno.');const o=num($('odoEnd').value);if(o<state.odoStart)return alert('El kilometraje final debe ser igual o mayor al inicial.');state.shiftEnd=Date.now();state.odoEnd=o;save();render()}
+function addFuel(){const v=num($('fuelInput').value);if(v<=0)return alert('Ingresa un monto de bencina válido.');state.fuel+=v;$('fuelInput').value='';save();render()}
+function addTrip(){const amount=num($('amount').value),km=num($('km').value);if(amount<=0)return alert('Ingresa una ganancia válida.');state.trips.unshift({id:Date.now(),amount,km:Math.max(0,km),payment:$('payment').value,time:new Date().toLocaleString('es-CL')});$('amount').value='';$('km').value='';save();render()}
+function delTrip(id){state.trips=state.trips.filter(t=>t.id!==id);save();render()}
+function reset(){if(confirm('¿Reiniciar todo el turno? Se borrarán viajes, carga de bencina, horario y kilometraje.')){state={fuel:0,trips:[],shiftStart:null,shiftEnd:null,odoStart:null,odoEnd:null};save();render()}}
 function render(){
- const gross=state.trips.reduce((s,t)=>s+t.amount,0), tripKms=state.trips.reduce((s,t)=>s+t.km,0);
- const odoKms=(state.odoStart!=null&&state.odoEnd!=null)?Math.max(0,state.odoEnd-state.odoStart):null;
- const kms=odoKms!==null?odoKms:tripKms;
- const maint=gross*(state.settings.maintPct/100), tax=gross*(state.settings.taxPct/100), costs=maint+tax;
- const efficiency=state.settings.efficiency||1, fuelPrice=state.settings.fuelPrice||0;
- const fuelConsumed=(kms/efficiency)*fuelPrice;
- const net=gross-fuelConsumed-costs, goal=state.settings.goal||1, pct=Math.max(0,Math.min(100,net/goal*100));
- $('gross').textContent=money(gross);$('fuel').textContent='-'+money(fuelConsumed);$('costs').textContent='-'+money(costs);
- $('fuelLoaded').textContent=money(state.fuel); $('kmTotal').textContent=(Math.round(kms*10)/10)+' km';
- $('net').textContent=money(net);$('perKm').textContent=(kms?money(gross/kms):'$0')+' / km bruto';
- const hrs=elapsedHours();
- $('netHour').textContent=money(net/hrs)+' / h';
- $('fuelKm').textContent=(kms?money(fuelConsumed/kms):'$0')+' / km';
- $('netKm').textContent=(kms?money(net/kms):'$0')+' / km';
- $('remaining').textContent=money(Math.max(0,goal-net));
- $('shiftInfo').textContent=state.shiftStart ? ('Inicio: '+new Date(state.shiftStart).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})+' · Tiempo: '+hrs.toFixed(1)+' h'+(state.shiftEnd?' · Finalizado':'')) : 'Turno no iniciado. Sin horario real, Neto/hora usa las horas meta configuradas.';
- $('odoStart').value=state.odoStart??'';
- $('odoEnd').value=state.odoEnd??'';
- const realKm=(state.odoStart!=null&&state.odoEnd!=null)?Math.max(0,state.odoEnd-state.odoStart):0;
- $('odoInfo').textContent='KM reales del turno: '+realKm.toFixed(1)+' km'+(state.odoEnd!=null?' · usados para combustible y rentabilidad':' · se calcularán al finalizar');
- $('metaText').textContent=money(net)+' / '+money(goal);$('bar').style.width=pct+'%';
- $('notice').textContent=gross ? (net>=goal?'✅ Meta líquida alcanzada.':'📈 Faltan '+money(Math.max(0,goal-net))+' para la meta.') : '⌛ Registra un viaje para calcular...';
- const h=$('history'); if(!state.trips.length){h.innerHTML='Sin viajes registrados aún.';return}
- h.innerHTML=state.trips.map((t,i)=>`<div class="trip"><div class="tripHead"><b>Viaje ${state.trips.length-i} · ${money(t.amount)}</b><button onclick="deleteTrip(${t.id})" style="padding:4px 8px;background:#334155;color:white">✕</button></div><div class="muted">${t.km} km · ${t.payment==='cash'?'Efectivo':'App/Tarjeta'} · ${t.time}</div></div>`).join('');
+ const card=state.trips.filter(t=>t.payment==='app').reduce((a,t)=>a+t.amount,0);
+ const cash=state.trips.filter(t=>t.payment==='cash').reduce((a,t)=>a+t.amount,0);
+ const gross=card+cash, tripKm=state.trips.reduce((a,t)=>a+(t.km||0),0);
+ const km=(state.odoStart!=null&&state.odoEnd!=null)?Math.max(0,state.odoEnd-state.odoStart):tripKm;
+ const hrs=elapsedHours(), pct=state.fuel>0?Math.min(100,gross/state.fuel*100):0, diff=gross-state.fuel;
+ $('cardTotal').textContent=money(card);$('cashTotal').textContent=money(cash);$('gross').textContent=money(gross);
+ $('fuelLoaded').textContent=money(state.fuel);$('fuelPct').textContent=state.fuel?Math.round(gross/state.fuel*100)+'%':'0%';$('fuelBar').style.width=pct+'%';
+ if(!state.fuel){$('fuelStatus').textContent='Sin carga registrada';$('fuelDiff').textContent='$0';$('fuelDiff').className=''}
+ else if(diff>=0){$('fuelStatus').textContent='✅ BENCINA RECUPERADA · Sobre carga';$('fuelDiff').textContent='+'+money(diff);$('fuelDiff').className='recovered'}
+ else{$('fuelStatus').textContent='Falta para recuperar';$('fuelDiff').textContent=money(Math.abs(diff));$('fuelDiff').className=''}
+ $('perHour').textContent=hrs?money(gross/hrs)+'/h':'$0/h';$('perKm').textContent=km?money(gross/km)+'/km':'$0/km';$('realKm').textContent=(Math.round(km*10)/10)+' km';
+ $('odoStart').value=state.odoStart??'';$('odoEnd').value=state.odoEnd??'';
+ if(state.shiftStart){$('shiftInfo').innerHTML='<span class="live">'+(state.shiftEnd?'● Turno finalizado':'● Turno en curso')+'</span> · Inicio '+new Date(state.shiftStart).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})+' · '+hrs.toFixed(1)+' h'}
+ else $('shiftInfo').textContent='Turno no iniciado.';
+ const h=$('history');h.innerHTML=state.trips.length?state.trips.map((t,i)=>`<div class="trip"><div class="tripTop"><b>Viaje ${state.trips.length-i} · ${money(t.amount)}</b><button class="del" data-id="${t.id}">✕</button></div><div class="tripMeta">${t.payment==='cash'?'💵 Efectivo':'💳 App/Tarjeta'}${t.km?' · '+t.km+' km':''} · ${t.time}</div></div>`).join(''):'Sin viajes registrados aún.';
+ h.querySelectorAll('.del').forEach(b=>b.addEventListener('click',()=>delTrip(Number(b.dataset.id))));
 }
-load();
-</script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-}
-</script>
-</body></html>
+$('startBtn').addEventListener('click',startShift);$('stopBtn').addEventListener('click',stopShift);$('fuelBtn').addEventListener('click',addFuel);$('addTrip').addEventListener('click',addTrip);$('resetBtn').addEventListener('click',reset);
+load();setInterval(()=>{if(state.shiftStart&&!state.shiftEnd)render()},60000);
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
