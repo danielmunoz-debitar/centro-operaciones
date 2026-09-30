@@ -1,29 +1,16 @@
-# DEBITAR · Centro de Operaciones v0.2
+# DEBITAR · Centro de Operaciones v0.3
 
-## Publicar en GitHub Pages
-1. Sube el contenido de esta carpeta a la raíz de tu repositorio.
-2. GitHub > Settings > Pages.
-3. Deploy from branch > `main` / `/root`.
-4. Abre la URL publicada una vez con internet. El Service Worker deja disponible la app offline.
+Versión integrada del ecosistema personal/DEBITAR/Uber.
 
-## Qué incluye
-- Dashboard autosumable.
-- Billeteras reales del ecosistema.
-- DEBITAR: clientes y ficha con los campos definidos.
-- Bóveda local cifrada AES-GCM para claves SII/Previred/Mutual/DT.
-- Uber: turnos, km reales, bruto, combustible consumido, desgaste, retención, neto, $/hora y $/km.
-- Meta Uber calculada desde el déficit mensual, no una meta fija.
-- Trabajo dependiente.
-- Gastos, deudas y cuotas por vencimiento.
-- Objetivos.
-- Exportar/importar respaldo JSON.
-- PWA / funcionamiento offline después de primera carga.
+## Actualización en GitHub Pages
+Reemplaza `index.html`, `app.js`, `styles.css`, `manifest.webmanifest` y `sw.js`. Mantén `assets/logo-debitar.png`. Haz commit y espera el despliegue de GitHub Pages.
 
-## Seguridad y sincronización
-- Datos normales: `localStorage` del navegador.
-- Claves de clientes: cifradas con Web Crypto AES-GCM + PBKDF2. La contraseña maestra NO se guarda.
-- Esta versión todavía no sincroniza automáticamente entre dispositivos. Usa Exportar/Importar respaldo para mover datos.
+## Datos
+- Se guardan localmente en el navegador.
+- Migra automáticamente datos básicos desde `debitar_ops_v02` cuando existe.
+- Usa Configuración > Exportar JSON como respaldo.
+- Las credenciales de clientes se cifran en el navegador con AES-GCM y contraseña maestra; la contraseña maestra no se guarda.
 - No publiques archivos JSON de respaldo en GitHub.
 
-## Importante
-La v0.2 es funcional y preserva la arquitectura financiera definida, pero aún es una etapa local/offline. La siguiente capa es autenticación + base central + sincronización multi-dispositivo.
+## Modelo
+Ingresos por fuente + cobros DEBITAR + Uber alimentan el ecosistema. Transferencias entre billeteras no son ingreso/gasto. Gastos y deudas se controlan por mes. Uber separa caja (bruto - bencina cargada) de resultado económico (bruto - combustible consumido - desgaste - retención).
