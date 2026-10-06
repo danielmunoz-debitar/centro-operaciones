@@ -1,3 +1,7 @@
+DEBITAR · Centro de Operaciones v0.9 COMERCIAL
+
+QR/Calculadora → WhatsApp → Pipeline → Google Calendar → Propuesta → Cliente.
+
 # DEBITAR · Centro de Operaciones v0.8 DAILY
 
 Construida de forma incremental sobre la v0.6.1 SAFE / v0.5 funcional.
