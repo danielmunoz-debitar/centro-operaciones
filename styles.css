@@ -92,3 +92,22 @@ html{color-scheme:dark}body{background:radial-gradient(ellipse at 85% -10%,#1b29
 #view .task-overdue .badtext{color:#ff9baa!important}
 #view .section h2{color:#eaf3ff!important}
 #view .followup-panel{display:block!important}
+
+/* v1.0.11 · legibilidad integral de ventanas y tablas de auditoría */
+.modal-bg .modal,.modal-bg .modal h1,.modal-bg .modal h2,.modal-bg .modal h3,.modal-bg .modal p,.modal-bg .modal b,.modal-bg .modal strong,.modal-bg .modal td,.modal-bg .modal th,.modal-bg .modal label{color:#edf7ff!important}
+.modal-bg .modal .muted,.modal-bg .modal small{color:#b9cbe0!important}
+.modal-bg .modal{background:#0e1c30!important}
+.modal-bg .modal .audit-scroll{background:#102138!important;border:1px solid #385371;border-radius:10px;overflow:auto}
+.modal-bg .modal .audit-scroll table{background:#102138!important;color:#edf7ff!important}
+.modal-bg .modal .audit-scroll tr,.modal-bg .modal .audit-scroll td{background:#102138!important;color:#edf7ff!important;border-bottom:1px solid #385371!important}
+.modal-bg .modal .audit-scroll tr:nth-child(even) td{background:#172b46!important}
+.modal-bg .modal .audit-scroll th{background:#1b3452!important;color:#bde9f7!important}
+.modal-bg .modal .audit-scroll .num{color:#fff!important;font-weight:700}
+.modal-bg .modal .audit-scroll tr:hover td{background:#26425e!important}
+.modal-bg .modal .btn.ghost{color:#eaf3ff!important;background:#1b3654!important}
+/* Todas las tablas en superficies oscuras deben conservar contraste */
+.card table tbody td,.card table tbody td b,.card table tbody td small{color:#edf5ff!important}
+.card table tbody tr{background:#102138!important}
+.card table tbody tr:nth-child(even){background:#162a45!important}
+.card table thead th{color:#c2e5f2!important;background:#1b3452!important}
+.card .section h2{color:#edf5ff!important}
