@@ -61,3 +61,23 @@ html{color-scheme:dark}body{background:radial-gradient(ellipse at 85% -10%,#1b29
 .cash-banner{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 16px}.cash-banner>div{background:linear-gradient(135deg,#132b43,#1c2445);border:1px solid #31516b;border-radius:15px;padding:18px}.cash-banner small,.cash-banner span{display:block;color:#b3c8db;font-size:11px}.cash-banner strong{display:block;font-size:26px;color:#f3fbff;margin:8px 0}.journal{margin-bottom:15px}.journal-row{display:flex;justify-content:space-between;gap:12px;align-items:center;border-left:4px solid #5ad9eb;padding:12px;margin:8px 0;background:#172d42;border-radius:7px}.journal-row.red{border-color:#f17891;background:#302337}.journal-row.amber{border-color:#f3bf63;background:#352e29}.journal-row b,.journal-row small{display:block}.journal-row small{color:#a9bbd0;font-size:11px;margin-top:4px}.continuity{padding:12px;background:#1b2d45;border-radius:10px;margin-top:14px}.continuity b,.continuity span{display:block}.continuity span{color:#afc5d9;margin-top:6px}.budget-panel{margin-top:16px}.budget-track{display:flex;height:12px;overflow:hidden;border-radius:12px;margin:14px 0}.budget-track i{display:block}.budget-cell{background:#1a2c43;border:1px solid #2f4861;border-radius:12px;padding:12px}.budget-cell small,.budget-cell b,.budget-cell span{display:block}.budget-cell b{font-size:19px;margin:7px 0}.budget-cell span{font-size:11px;color:#a9bed4}
 @media(max-width:850px){.shell-v104{grid-template-columns:1fr!important}.shell-v104 .side-left{position:relative;height:auto;overflow:visible;padding:12px!important}.brand-wrap{min-height:70px;padding:0 0 8px;margin-bottom:8px}.shell-v104 .logo{max-height:84px!important;width:190px!important}.grouped-nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.group-trigger{font-size:10px!important;padding:9px 4px!important;justify-content:center!important;text-align:center!important}.group-trigger span:last-child{display:none}.group-pages.open{position:absolute;z-index:20;left:10px;right:10px;top:100%;background:#14263e;padding:10px;border:1px solid #3a536e;border-radius:12px;box-shadow:0 14px 30px #0008}.shell-v104 .main{padding:12px!important}.cash-banner{grid-template-columns:1fr}.budget-cell b{font-size:16px}}
 @media(max-width:470px){.group-trigger{font-size:9px!important}.journal-row{flex-wrap:wrap}.cash-banner strong{font-size:22px}}
+
+/* v1.0.5: corrección integral de contraste del área comercial */
+.shell-v104 .commercial-workbench > div,
+.shell-v104 .commercial-workbench > section,
+.shell-v104 .commercial-workbench .campaign-grid {background:#112238!important;color:#eaf4ff!important;border-color:#314a66!important}
+.shell-v104 .commercial-workbench h2,.shell-v104 .commercial-workbench h3,
+.shell-v104 .commercial-workbench b {color:#f0f7ff!important}
+.shell-v104 .commercial-workbench small,.shell-v104 .commercial-workbench .muted {color:#b4c8de!important}
+.shell-v104 .campaign-metrics span {background:#203650!important;color:#b5cce4!important;border:1px solid #36516d!important}
+.shell-v104 .campaign-metrics b {color:#f2f9ff!important;font-size:13px!important}
+.shell-v104 .agenda-slots .agenda-slot,
+.shell-v104 .agenda-slots .agenda-slot span {background:#1b304a!important;color:#f2f9ff!important;border-color:#36516d!important}
+.shell-v104 .agenda-slots .agenda-slot span {display:block!important;padding:7px 10px!important;font-size:13px!important;font-weight:800!important;min-width:70px;text-align:center}
+.shell-v104 .agenda-slots .agenda-slot b,.shell-v104 .agenda-slots .agenda-slot small {color:#b8d4ef!important}
+.shell-v104 .agenda-slots .agenda-slot.free:hover {background:#284665!important;border-color:#51cbe2!important}
+.shell-v104 .campaign-card {background:#162942!important;border-color:#36516d!important}
+.shell-v104 .campaign-card small,.shell-v104 .campaign-card em {color:#b4c8de!important}
+.shell-v104 .journal .journal-row b {color:#f2f8ff!important}
+.shell-v104 .group-pages .dockbtn {font-size:13px!important}
+.shell-v104 .group-pages .dockbtn.on {box-shadow:inset 3px 0 #4fd4e8}

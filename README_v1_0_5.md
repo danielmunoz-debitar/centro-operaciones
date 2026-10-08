@@ -1,0 +1,1 @@
+DEBITAR v1.0.5 · Parche de contraste y acceso a tareas. Reemplazar archivos en raíz de GitHub Pages, incluyendo assets. Conservar respaldo JSON y no borrar datos del sitio. Verificar visualmente agenda, campañas, tareas y registros. No modifica saldos ni datos.
