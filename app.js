@@ -433,3 +433,38 @@ bind=function(){prevBind();$$('[data-portfolio-toggle]').forEach(x=>x.onclick=()
 action=function(a){return prevAction(a)};
 ensure();save();prevShell();
 })();
+
+
+/* DEBITAR v1.0.12: agrupación de gastos y exportaciones CSV para Excel */
+(()=>{
+const oldBind=bind,oldFinance=finances,oldClients=clients;
+const saldo=e=>Math.max(0,(+e.amount||0)-(+e.paidAmount||0));
+const sum=(a,fn)=>a.reduce((n,e)=>n+fn(e),0);
+expenses=function(){
+const all=monthExpenses(),cats=[...new Set(all.map(e=>e.category).filter(Boolean))].sort(),cat=state.expenseFilter||'Todas',list=(cat==='Todas'?all:all.filter(e=>e.category===cat)).sort((a,b)=>(+a.day||99)-(+b.day||99));
+const pending=list.filter(e=>!['Pagado','Postergado'].includes(e.status)),postponed=list.filter(e=>e.status==='Postergado'),paid=list.filter(e=>e.status==='Pagado');
+const section=(label,arr,opened)=>'<details class="card" '+(opened?'open':'')+'><summary style="cursor:pointer;padding:12px;font-weight:bold">'+label+' · '+arr.length+' · '+fmt(sum(arr,label==='Pagados'?e=>(+e.paidAmount||+e.amount||0):saldo))+'</summary><div class="tablewrap"><table><thead><tr><th>Concepto</th><th>Categoría</th><th>Vence</th><th>Monto</th><th>Abonado</th><th>Saldo</th><th>Estado</th><th>Acción</th></tr></thead><tbody>'+arr.map(e=>'<tr><td><b>'+esc(e.name)+'</b></td><td>'+esc(e.category)+'</td><td>Día '+(e.day||'—')+'</td><td class="num">'+fmt(e.amount)+'</td><td class="num">'+fmt(e.paidAmount||0)+'</td><td class="num">'+fmt(saldo(e))+'</td><td>'+esc(e.status)+'</td><td class="actions"><button class="btn ghost sm" data-edit-exp="'+esc(e.id)+'">Editar</button> '+(e.status==='Pagado'?'<button class="btn ghost sm" data-unpay-exp="'+esc(e.id)+'">Revertir</button>':'<button class="btn sm" data-pay-exp="'+esc(e.id)+'">Pagar</button>')+'</td></tr>').join('')+'</tbody></table>'+(arr.length?'':'<div class="empty">Sin movimientos</div>')+'</div></details>';
+return '<div class="grid three">'+kpi('Pendiente',fmt(sum(pending,saldo)),'Por pagar')+kpi('Postergado',fmt(sum(postponed,saldo)),'Por revisar')+kpi('Pagado',fmt(sum(paid,e=>(+e.paidAmount||+e.amount||0))),'Historial')+'</div><div class="section"><div><h2>Gastos por estado</h2><small class="muted">Pendientes arriba; pagados en sección desplegable, como correos leídos.</small></div><div class="actions"><select id="expense-filter" class="month"><option>Todas</option>'+cats.map(c=>'<option '+(cat===c?'selected':'')+'>'+esc(c)+'</option>').join('')+'</select><button class="btn ghost" data-export-sheet="gastos">Exportar gastos (Excel CSV)</button><button class="btn" data-act="newexpense">+ Nuevo gasto</button></div></div>'+section('Pendientes',pending,true)+section('Postergados',postponed,true)+section('Pagados',paid,false);
+};
+function exportSheet(type){
+const m=state.selectedMonth,wn=id=>(state.wallets||[]).find(w=>w.id===id)?.name||'',cn=id=>(state.clients||[]).find(c=>c.id===id)?.name||'';
+const sets={
+gastos:[['Mes','Concepto','Categoría','Vence día','Monto','Abonado','Saldo','Estado','Billetera','Fecha pago'],monthExpenses().map(e=>[m,e.name,e.category,e.day,e.amount,e.paidAmount||0,saldo(e),e.status,wn(e.wallet),e.paidDate||''])],
+ingresos:[['Fecha','Fuente','Monto','Billetera','Nota'],(state.incomes||[]).map(e=>[e.date,e.source,e.amount,wn(e.wallet),e.note])],
+transferencias:[['Fecha','Origen','Destino','Monto'],(state.transfers||[]).map(e=>[e.date,wn(e.from),wn(e.to),e.amount])],
+billeteras:[['Nombre','Tipo','Activa','Saldo'],(state.wallets||[]).map(e=>[e.name,e.type,e.active?'Sí':'No',e.balance])],
+clientes:[['Cliente','Activo','Honorario','Día cobro'],(state.clients||[]).map(e=>[e.name,e.active?'Sí':'No',e.fee,e.day])],
+cobranza:[['Mes','Cliente','Fecha','Monto','Estado','Billetera'],(state.collections||[]).map(e=>[e.month,cn(e.clientId),e.date,e.amount,e.status,wn(e.wallet)])],
+deudas:[['Nombre','Vencimiento','Monto','Saldo registrado','Estado'],(state.debts||[]).map(e=>[e.name,e.date,e.amount,e.balance??'',e.status])],
+uber:[['Inicio','Fin','Km','Horas','Bruto','Combustible','Neto','Viajes'],(state.uberTurns||[]).map(e=>[e.start,e.end,e.km,e.hours,e.gross,e.fuelCost,e.net,e.tripCount])]
+};
+if(!sets[type])return;
+const cell=x=>{let v=String(x??'');if(/^[=+@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
+const csv='\ufeff'+[sets[type][0],...sets[type][1]].map(row=>row.map(cell).join(';')).join('\r\n'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='DEBITAR_'+type+'_'+m+'.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+const buttons=types=>'<div class="card"><h3>Exportaciones para Excel y conciliación</h3><div class="actions">'+types.map(t=>'<button class="btn ghost" data-export-sheet="'+t+'">Exportar '+t+'</button>').join('')+'</div><small class="muted">CSV compatible con Excel; no modifica tus registros.</small></div>';
+finances=function(){return oldFinance()+buttons(['ingresos','transferencias','billeteras','cobranza','deudas','uber'])};
+clients=function(){return oldClients()+buttons(['clientes'])};
+bind=function(){oldBind();$$('[data-export-sheet]').forEach(b=>b.onclick=()=>exportSheet(b.dataset.exportSheet))};
+shell();
+})();
