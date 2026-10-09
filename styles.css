@@ -111,3 +111,12 @@ html{color-scheme:dark}body{background:radial-gradient(ellipse at 85% -10%,#1b29
 .card table tbody tr:nth-child(even){background:#162a45!important}
 .card table thead th{color:#c2e5f2!important;background:#1b3452!important}
 .card .section h2{color:#edf5ff!important}
+
+
+/* v1.0.16 · Contraste accesible en tarjetas de proyectos */
+.project-card{background:#14253d!important;color:#edf7ff!important;border:1px solid #385371!important}
+.project-card h3,.project-card b,.project-card strong,.project-card .num{color:#f4f9ff!important}
+.project-card p,.project-card small,.project-card span,.project-card label{color:#bdd0e7!important}
+.project-card .project-metrics>*,.project-card .project-metrics>div{background:#1b3452!important;color:#edf7ff!important}
+.project-card .project-metrics b,.project-card .project-metrics strong{color:#fff!important}
+.project-card:hover{background:#1b304d!important}
