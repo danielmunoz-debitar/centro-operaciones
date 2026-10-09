@@ -518,3 +518,31 @@ dashboard=function(){
 };
 if(page==='Inicio')render();
 })();
+
+
+/* v1.0.15 · Panel limpio: corrección definitiva en la generación de Inicio */
+(()=>{
+const dashboardBase=dashboard;
+dashboard=function(){
+ let html=dashboardBase();
+ const tmp=document.createElement('div');tmp.innerHTML=html;
+ const drop=label=>{
+  const h=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()===label);
+  if(h){let card=h.closest('.card');if(card)card.remove();}
+ };
+ drop('Mi jornada · pendientes prioritarios');
+ drop('Decisión rápida');
+ drop('Origen de ingresos');
+ const audit=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Auditoría rápida del panel');
+ const brief=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Briefing de hoy');
+ if(audit&&brief){const ac=audit.closest('.card'),bc=brief.closest('.card');if(ac&&bc)bc.after(ac);}
+ return tmp.innerHTML;
+};
+const originalRender=render;
+render=function(){originalRender();if(page!=='Inicio')return;const root=document.querySelector('#view');if(!root)return;
+ for(const name of ['Mi jornada · pendientes prioritarios','Decisión rápida','Origen de ingresos']){
+ const h=[...root.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()===name);if(h)h.closest('.card')?.remove();
+ }
+};
+if(page==='Inicio')render();
+})();
