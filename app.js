@@ -468,3 +468,26 @@ clients=function(){return oldClients()+buttons(['clientes'])};
 bind=function(){oldBind();$$('[data-export-sheet]').forEach(b=>b.onclick=()=>exportSheet(b.dataset.exportSheet))};
 shell();
 })();
+
+
+/* v1.0.13 · Dashboard ejecutivo sin paneles redundantes */
+(()=>{
+const oldBind=bind;
+bind=function(){
+ oldBind();
+ if(page!=='Inicio')return;
+ const root=document.querySelector('#view');if(!root)return;
+ const heading=(text)=>[...root.querySelectorAll('h2,h3')].find(h=>h.textContent.trim()===text);
+ const decision=heading('Decisión rápida');
+ if(decision){const card=decision.closest('.decision-card');if(card)card.remove();}
+ const origin=heading('Origen de ingresos');
+ if(origin){const card=origin.closest('.card');if(card)card.remove();}
+ const audit=heading('Auditoría rápida del panel');
+ if(audit){
+   const card=audit.closest('.card');
+   const firstKpis=root.querySelector('.grid.kpis,.grid.three,.grid.four');
+   if(card&&firstKpis&&firstKpis.parentNode){firstKpis.insertAdjacentElement('afterend',card);}
+ }
+};
+shell();
+})();
