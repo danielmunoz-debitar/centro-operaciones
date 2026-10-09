@@ -491,3 +491,30 @@ bind=function(){
 };
 shell();
 })();
+
+
+/* v1.0.14 · Limpieza estructural del Inicio, antes de pintar la vista */
+(()=>{
+const previousDashboard=dashboard;
+dashboard=function(){
+ const host=document.createElement('div');
+ host.innerHTML=previousDashboard();
+ const removeHeading=(label,selector)=>{
+  const h=[...host.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()===label);
+  if(h){const el=h.closest(selector);if(el)el.remove();}
+ };
+ removeHeading('Mi jornada · pendientes prioritarios','.card');
+ removeHeading('Decisión rápida','.card');
+ removeHeading('Origen de ingresos','.card');
+ const audit=[...host.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Auditoría rápida del panel');
+ if(audit){
+  const card=audit.closest('.card');
+  const briefing=[...host.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Briefing de hoy');
+  const briefCard=briefing&&briefing.closest('.card');
+  if(card&&briefCard)briefCard.insertAdjacentElement('afterend',card);
+  else if(card)host.insertBefore(card,host.firstElementChild);
+ }
+ return host.innerHTML;
+};
+if(page==='Inicio')render();
+})();
