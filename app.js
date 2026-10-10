@@ -520,29 +520,44 @@ if(page==='Inicio')render();
 })();
 
 
-/* v1.0.15 · Panel limpio: corrección definitiva en la generación de Inicio */
+/* v1.0.17 · Limpieza estructural del dashboard sin alterar datos */
 (()=>{
-const dashboardBase=dashboard;
-dashboard=function(){
- let html=dashboardBase();
- const tmp=document.createElement('div');tmp.innerHTML=html;
- const drop=label=>{
-  const h=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()===label);
-  if(h){let card=h.closest('.card');if(card)card.remove();}
- };
- drop('Mi jornada · pendientes prioritarios');
- drop('Decisión rápida');
- drop('Origen de ingresos');
- const audit=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Auditoría rápida del panel');
- const brief=[...tmp.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()==='Briefing de hoy');
- if(audit&&brief){const ac=audit.closest('.card'),bc=brief.closest('.card');if(ac&&bc)bc.after(ac);}
- return tmp.innerHTML;
-};
-const originalRender=render;
-render=function(){originalRender();if(page!=='Inicio')return;const root=document.querySelector('#view');if(!root)return;
- for(const name of ['Mi jornada · pendientes prioritarios','Decisión rápida','Origen de ingresos']){
- const h=[...root.querySelectorAll('h2,h3')].find(x=>x.textContent.trim()===name);if(h)h.closest('.card')?.remove();
+ const sourceDashboard=dashboard;
+ const unwanted=['Mi jornada · pendientes prioritarios','Decisión rápida','Origen de ingresos'];
+ function tidyDashboard(html){
+   const host=document.createElement('div');
+   host.innerHTML=html;
+   const heading=(name)=>[...host.querySelectorAll('h1,h2,h3,h4')].find(el=>el.textContent.trim()===name);
+   for(const name of unwanted){
+     const h=heading(name);
+     if(!h)continue;
+     const card=h.closest('.card');
+     if(card)card.remove();
+   }
+   const audit=heading('Auditoría rápida del panel')?.closest('.card');
+   const briefing=heading('Briefing de hoy')?.closest('.card');
+   if(audit){
+     if(briefing&&briefing!==audit)briefing.insertAdjacentElement('afterend',audit);
+     else{
+       const kpis=host.querySelector('.grid.kpis,.grid.dash5');
+       if(kpis)kpis.insertAdjacentElement('afterend',audit);
+       else host.insertBefore(audit,host.firstChild);
+     }
+   }
+   return host.innerHTML;
  }
-};
-if(page==='Inicio')render();
+ dashboard=function(){return tidyDashboard(sourceDashboard())};
+ // Se aplica también al DOM final, por si otra capa añade secciones.
+ const sourceRender=render;
+ render=function(){
+   sourceRender();
+   if(page!=='Inicio')return;
+   const root=document.querySelector('#view');
+   if(!root)return;
+   for(const name of unwanted){
+     const h=[...root.querySelectorAll('h1,h2,h3,h4')].find(el=>el.textContent.trim()===name);
+     h?.closest('.card')?.remove();
+   }
+ };
+ if(page==='Inicio')render();
 })();
