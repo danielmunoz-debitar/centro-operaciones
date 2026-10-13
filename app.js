@@ -561,3 +561,61 @@ if(page==='Inicio')render();
  };
  if(page==='Inicio')render();
 })();
+
+
+/* DEBITAR PERIOD CONTROL v1.1 */
+(function(){
+  const priorShell=shell, priorRender=render;
+  function periods(){
+    if(!state.periodControl || typeof state.periodControl!=='object'){
+      const known=new Set([state.selectedMonth]);
+      for(const k of Object.keys(state.expenseMonths||{}))known.add(k);
+      for(const k of Object.keys(state.clientMonthly||{}))known.add(k);
+      for(const c of state.collections||[])if(c.month)known.add(c.month);
+      for(const i of state.incomes||[])if(i.date)known.add(i.date.slice(0,7));
+      for(const t of state.uberTurns||[])if(t.start)known.add(t.start.slice(0,7));
+      state.periodControl={};
+      for(const m of known)if(/^\d{4}-\d{2}$/.test(m))state.periodControl[m]={status:'open',openedAt:new Date().toISOString(),legacy:true};
+      save();
+    }
+    return state.periodControl;
+  }
+  function backupPeriod(){
+    const data=JSON.stringify(state,null,2);
+    const blob=new Blob([data],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='debitar-respaldo-antes-cierre-'+state.selectedMonth+'.json';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+  }
+  function decorate(){
+    const top=document.querySelector('.top'),view=document.querySelector('#view');
+    if(!top||!view)return;
+    const m=state.selectedMonth,p=periods()[m],status=p?.status||'unopened';
+    let bar=document.querySelector('#period-controls');
+    if(!bar){bar=document.createElement('div');bar.id='period-controls';top.insertAdjacentElement('afterend',bar);}
+    bar.style.cssText='display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 16px;margin:10px 0;border:1px solid #41617d;border-radius:12px;background:#10283d;color:#f1f7ff';
+    bar.innerHTML='<strong>Período '+m+'</strong><span style="padding:5px 9px;border-radius:8px;background:#294762">'+(status==='open'?'ABIERTO':status==='closed'?'CERRADO':'SIN ABRIR')+'</span><button id="period-action" type="button" style="background:#2466a2;color:white;border:0;border-radius:8px;padding:9px 12px;cursor:pointer">'+(status==='open'?'Cerrar mes':status==='closed'?'Reabrir mes':'Abrir mes')+'</button><small>El cambio de mes solo consulta; la apertura y cierre son manuales.</small>';
+    const action=bar.querySelector('#period-action');
+    action.onclick=()=>{
+      if(status==='open'){
+        if(!confirm('¿Cerrar '+m+'? Se descargará un respaldo. Revisa que se haya guardado antes de continuar.'))return;
+        backupPeriod();
+        if(!confirm('Confirma que descargaste el respaldo. ¿Bloquear el período '+m+'?'))return;
+        periods()[m]={...p,status:'closed',closedAt:new Date().toISOString()};
+      }else if(status==='closed'){
+        if(!confirm('¿Reabrir '+m+' para permitir correcciones?'))return;
+        periods()[m]={...p,status:'open',reopenedAt:new Date().toISOString()};
+      }else{
+        if(!confirm('¿Abrir el período '+m+'? Se conservarán los registros históricos y los saldos.'))return;
+        periods()[m]={status:'open',openedAt:new Date().toISOString()};
+      }
+      save();render();
+    };
+    if(status!=='open'){
+      view.innerHTML='<div class="card" style="padding:25px;color:#eaf4ff;background:#142e48"><h2>'+ (status==='closed'?'Período cerrado':'Período sin abrir')+'</h2><p>Los datos están conservados. Para registrar o modificar información en '+m+', utiliza el botón '+(status==='closed'?'Reabrir mes':'Abrir mes')+'.</p></div>';
+    }
+  }
+  shell=function(){priorShell();decorate();};
+  render=function(){priorRender();decorate();};
+  periods();decorate();
+})();
