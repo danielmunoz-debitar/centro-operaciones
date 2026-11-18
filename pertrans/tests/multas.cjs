@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm'),path=require('path');
+const root=path.join(__dirname,'..'),XLSX=require(root+'/lib/xlsx.full.min.js'),fflate=require(root+'/combustible/vendor/fflate.js');
+const c={XLSX,fflate,Date,Map,Set,Uint8Array};vm.createContext(c);for(const file of ['lib/common.js','multas/tracking.js'])vm.runInContext(fs.readFileSync(root+'/'+file,'utf8'),c);const T=c.FineTracking;
+let fine=T.normalize({id:'f1',driver:'Conductor de prueba',plate:'TEST11',mobile:'1',state:'Pagada',paidDate:'2026-11-18',paidAmount:120000,recoveryMode:'Conductor',debt:120000,installments:3,firstMonth:'2026-12',images:[],receipts:[]});
+assert.equal(T.balance(fine),120000);assert(!T.closed(fine));assert(T.matches(fine,'pending'));assert(!T.matches(fine,'unpaid'));
+const receipt=T.newReceipt(fine,{id:'p1',date:'2026-12-30',amount:40000,ref:'Liquidacion diciembre'});fine.receipts.push(receipt);
+assert.equal(T.balance(fine),80000);assert.equal(T.schedule(fine)[0].status,'Cubierta');assert.equal(T.schedule(fine)[1].month,'2027-01');
+assert.throws(()=>T.newReceipt(fine,{id:'p2',date:'2027-01-30',amount:80001,ref:'X'}),/supera/);
+assert.throws(()=>T.validatePlan({...fine,debt:39999}),/menor/);
+assert.throws(()=>T.validatePlan({...fine,recoveryMode:'No corresponde'}),/abonos/);
+const partial={...fine,debt:100000,installments:3,receipts:[{...receipt,amount:40000}]};assert.equal(T.schedule(partial).reduce((n,r)=>n+r.due,0),100000);assert.equal(T.schedule(partial)[1].paid,6666);
+fine.receipts.push(T.newReceipt(fine,{id:'p2',date:'2027-01-30',amount:80000,ref:'Pago saldo'}));assert(T.closed(fine));assert(!T.matches(fine,'pending'));
+fine.receipts[1].voided=true;assert.equal(T.balance(fine),80000);assert(!T.closed(fine));
+assert(!T.closed(T.normalize({state:'Pagada'})));assert(T.closed(T.normalize({state:'Pagada',recoveryMode:'No corresponde'})));
+const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet([['Modelo']]),'Hallazgos');const zip=fflate.unzipSync(XLSX.write(book,{type:'buffer'}));T.exportTracking(zip,[fine]);
+const out=XLSX.read(fflate.zipSync(zip),{type:'array'});assert(out.Sheets['Pendientes multas']);assert.equal(XLSX.utils.sheet_to_json(out.Sheets['Cuotas conductores'],{header:1})[1][6],40000);
+const imported=[T.normalize({id:'new',plate:'TEST11',state:'Pagada',images:[]})];T.importTracking(out,imported);assert.equal(imported[0].id,'f1');assert.equal(T.balance(imported[0]),80000);assert.equal(imported[0].receipts.length,2);assert.equal(imported[0].receipts[1].voided,true);
+assert.throws(()=>T.importTracking(out,[T.normalize({id:'other',plate:'OTRA22',images:[]})]),/asociación/);
+T.exportTracking(zip,imported);assert.equal(c.PT.manifest(zip).length,5); // Replace, without duplicating generated sheets.
+console.log('OK: cuotas exactas, abonos parciales, cierre, anulaciones y Excel con reimportación.');

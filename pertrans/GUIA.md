@@ -34,3 +34,15 @@ Cuatro procesos independientes. AM/PM queda fuera.
 Los registros quedan en el almacenamiento de este navegador, sin subirse automáticamente a GitHub. La página y el código son públicos. Cualquier persona con acceso al mismo perfil del navegador puede acceder al trabajo guardado. Borrar los datos del sitio elimina ese almacenamiento: conserva respaldos fuera del navegador.
 
 **Limpiar pantalla** en Multas vacía el formulario y la vista previa, conservando el historial y el Excel base. En Taller y Autopistas permite descartar la tanda después de exportar o respaldar, conservando el modelo.
+
+
+### Pago de multas y cuotas del conductor
+
+- En **Editar**, marca la multa **Pagada** e ingresa fecha, monto efectivamente pagado, quién pagó y referencia del comprobante.
+- En **Cobro al conductor**, elige **Conductor** e ingresa responsable, monto a recuperar, número de cuotas y mes de inicio. Registra la referencia del acuerdo que respalda el descuento. El monto nominal de la multa y el efectivamente pagado se conservan por separado.
+- Abre **Cuotas y abonos** y registra cada descuento efectivo con fecha, monto y referencia de liquidación. Planificar cuotas no disminuye el saldo. Los abonos se aplican desde la cuota más antigua; se permiten descuentos parciales y pagos anticipados. Si un abono es incorrecto, **Anular** conserva la trazabilidad y repone el saldo.
+- La multa sale de **Multas por pagar** al marcarla Pagada. Si el conductor tiene saldo, continúa en **Pendientes de pago o recuperación**. Al recuperar todo el monto pasa a **Cerradas**. Si no hay cobro al conductor, selecciona **No corresponde**; **Por definir** mantiene el caso pendiente.
+- El Excel conserva **Hallazgos** y los resultados históricos de **Revision semanal**: pagar hoy no cambia lo que se detectó otro día. Añade **Pendientes multas**, **Seguimiento multas**, **Cuotas conductores** y **Abonos conductores**. Se puede reimportar el Excel generado para recuperar pagos y cuotas; las imágenes requieren el respaldo JSON completo.
+- El informe respeta el filtro de estado y fechas; el Excel siempre incluye todo el historial y una hoja separada de pendientes. Deja las fechas vacías para ver saldos de revisiones antiguas. El período filtra por fecha de revisión, no por mes del descuento.
+
+Este módulo registra pagos y descuentos informados; no ejecuta descuentos en las remuneraciones.
