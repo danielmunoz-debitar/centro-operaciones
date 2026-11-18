@@ -20,7 +20,7 @@ function cell(ref,v,style){let a='<c r="'+ref+'"'+(style?' s="'+style+'"':'');if
 function patch(xml,changes,options={}){
  const m=xml.match(/<sheetData\b[^>]*>([\s\S]*?)<\/sheetData>/);if(!m)throw Error('Formato de hoja no compatible');
  const rs=new Map(),styles=new Map();let model=[];
- for(const q of m[1].matchAll(/<row\b([^>]*)(?:\/>|>([\s\S]*?)<\/row>)/g)){const n=+attr(q[1],'r');if(options.modelRow===n)model=[...(q[2]||'').matchAll(/<c\b([^>]*)(?:\/>|>[\s\S]*?<\/c>)/g)].map(c=>[attr(c[1],'r').replace(/\d+$/,''),attr(c[1],'s')]);if(options.clearFrom&&n>=options.clearFrom)continue;rs.set(n,{attrs:q[1],cells:new Map([...(q[2]||'').matchAll(/<c\b([^>]*)(?:\/>|>[\s\S]*?<\/c>)/g)].map(c=>[attr(c[1],'r'),c[0]]))});}
+ for(const q of m[1].matchAll(/<row\b([^>]*?)(?:\/>|>([\s\S]*?)<\/row>)/g)){const n=+attr(q[1],'r');if(options.modelRow===n)model=[...(q[2]||'').matchAll(/<c\b([^>]*?)(?:\/>|>[\s\S]*?<\/c>)/g)].map(c=>[attr(c[1],'r').replace(/\d+$/,''),attr(c[1],'s')]);if(options.clearFrom&&n>=options.clearFrom)continue;rs.set(n,{attrs:q[1],cells:new Map([...(q[2]||'').matchAll(/<c\b([^>]*?)(?:\/>|>[\s\S]*?<\/c>)/g)].map(c=>[attr(c[1],'r'),c[0]]))});}
  for(const [c,s]of model)styles.set(c,s);
  for(const [ref,v]of Object.entries(changes)){const n=+ref.match(/\d+$/)[0],col=ref.replace(/\d+$/,'');if(!rs.has(n))rs.set(n,{attrs:' r="'+n+'"',cells:new Map()});const r=rs.get(n);const old=r.cells.get(ref);r.cells.set(ref,cell(ref,v,old?attr((old.match(/<c\b([^>]*)/)||[])[1]||'','s'):styles.get(col)));}
  const content=[...rs].sort((a,b)=>a[0]-b[0]).map(([n,r])=>'<row'+r.attrs+'>'+[...r.cells].sort(([a],[b])=>XLSX.utils.decode_col(a.replace(/\d+$/,''))-XLSX.utils.decode_col(b.replace(/\d+$/,''))).map(x=>x[1]).join('')+'</row>').join('');
