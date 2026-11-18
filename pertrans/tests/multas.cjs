@@ -16,5 +16,5 @@ const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.ao
 const out=XLSX.read(fflate.zipSync(zip),{type:'array'});assert(out.Sheets['Pendientes multas']);assert.equal(XLSX.utils.sheet_to_json(out.Sheets['Cuotas conductores'],{header:1})[1][6],40000);
 const imported=[T.normalize({id:'new',plate:'TEST11',state:'Pagada',images:[]})];T.importTracking(out,imported);assert.equal(imported[0].id,'f1');assert.equal(T.balance(imported[0]),80000);assert.equal(imported[0].receipts.length,2);assert.equal(imported[0].receipts[1].voided,true);
 assert.throws(()=>T.importTracking(out,[T.normalize({id:'other',plate:'OTRA22',images:[]})]),/asociación/);
-T.exportTracking(zip,imported);assert.equal(c.PT.manifest(zip).length,5); // Replace, without duplicating generated sheets.
+T.exportTracking(zip,imported);assert.equal(c.PT.manifest(zip).length,6); // Replace, without duplicating generated sheets.
 console.log('OK: cuotas exactas, abonos parciales, cierre, anulaciones y Excel con reimportación.');

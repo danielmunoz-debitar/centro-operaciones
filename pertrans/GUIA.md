@@ -46,3 +46,15 @@ Los registros quedan en el almacenamiento de este navegador, sin subirse automá
 - El informe respeta el filtro de estado y fechas; el Excel siempre incluye todo el historial y una hoja separada de pendientes. Deja las fechas vacías para ver saldos de revisiones antiguas. El período filtra por fecha de revisión, no por mes del descuento.
 
 Este módulo registra pagos y descuentos informados; no ejecuta descuentos en las remuneraciones.
+
+
+## Flujo desde el Excel revisado
+
+1. Carga el Excel: se detectan las patentes marcadas **Con hallazgos** y las que tengan multas en **Hallazgos**. La lista se agrupa por patente; no vuelve a pedir marcar cada revisión. Los pagos, abonos y respaldos locales se conservan al recargar un archivo. La lista principal corresponde a los hallazgos del último Excel; el historial financiero se mantiene separado.
+2. Presiona **Completar antecedentes**. Agrega información adicional por patente y guarda. Si conoces folio, comuna y monto, abre **Individualizar una multa** y registra una fila por infracción. Un texto como "2 multas" se conserva como observación; no crea dos registros ficticios.
+3. Carga imágenes o un Word **.docx**, asociado al informe general o a una patente detectada. Se extraen el texto y las imágenes incrustadas para el respaldo del informe; no incluye OCR ni identificación automática del conductor. Los .doc antiguos deben guardarse como .docx. Las imágenes externas y formatos no admitidos se informan como pendientes.
+4. Revisa el período y destinatario del **Informe preliminar**. El botón prepara la vista previa con resumen por patente, información faltante, multas individualizadas y respaldos. Usa **Imprimir o guardar PDF**. El sistema no envía el informe.
+5. En **Control de pagos de multas identificadas**, filtra **Sin pago registrado**, **Pagadas** o **Todas las identificadas**. Ingresa fecha, monto, quién pagó y referencia del comprobante. La lista indica lo registrado, no consulta automáticamente el estado de deuda ante el organismo. Las cuotas y abonos del conductor continúan en el historial.
+6. Descarga el Excel actualizado para conservar pagos, cuotas y la nueva hoja **Antecedentes patentes**. Descarga además el respaldo JSON completo para conservar Word e imágenes, que no se incrustan en el Excel.
+
+Los documentos se procesan en el navegador. La carga de respaldo Word fue verificada mediante pruebas de extracción de texto e imagen incrustada; la prueba de carga de archivos en el navegador de desarrollo quedó interrumpida.
